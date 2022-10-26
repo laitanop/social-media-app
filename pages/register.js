@@ -21,7 +21,7 @@ function Register() {
     useEffect(() => {
         if (loading) return;
         if (user) router.push('/home');
-    }, [user, loading]);
+    }, [user, loading, router]);
     return (
         <div className={styles.register}>
             <div className={styles.register__container}>
