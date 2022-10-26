@@ -17,8 +17,8 @@ const home = () => {
             </Head>
 
             <main className={styles.main}>
-                <Logout />
                 <h1 className={styles.title}>
+                    <Logout />
                     Welcome to <a href="https://nextjs.org">Next.js!</a>
                 </h1>
 
