@@ -1,7 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { auth, signInWithGoogle, logInWithEmailAndPassword } from '../firebase';
+import {
+    auth,
+    signInWithGoogle,
+    logInWithEmailAndPassword,
+    signInWithFacebook,
+} from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import styles from '../../styles/Login.module.css';
 import Link from 'next/link';
@@ -9,32 +14,57 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
-import { Container, Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 const StyledButton = styled(Button)({
     borderRadius: '100px',
     width: '100%',
     marginTop: '10px',
     padding: '10px',
-    backgroundColor: '#ba68c8',
+    backgroundColor: '#d500f9',
     '&:hover': {
         backgroundColor: 'white',
-        color: '#ba68c8',
+        color: '#d500f9',
     },
 });
 const StyledText = styled(Typography)({
     color: 'white',
+    textAlign: 'center',
 });
-
+const StyledTextApp = styled(Typography)({
+    color: '#d500f9',
+    textAlign: 'center',
+    fontWeight: 'bold',
+});
+const StyledTextRegister = styled(Typography)({
+    color: 'blue',
+    cursor: 'pointer',
+    display: 'inline-flex',
+    '&:hover': {
+        color: '#ffb96b',
+    },
+});
 const StyledGoogleButton = styled(Button)({
+    borderRadius: '100px',
+    width: '100%',
+    marginTop: '20px',
+    backgroundColor: 'black',
+    padding: '10px',
+    '&:hover': {
+        backgroundColor: 'white',
+        color: 'blue',
+    },
+});
+const StyledFacebookButton = styled(Button)({
     borderRadius: '100px',
     width: '100%',
     marginTop: '20px',
     marginBottom: '30px',
     padding: '10px',
+    backgroundColor: '#304ffe',
     '&:hover': {
         backgroundColor: 'white',
-        color: 'blue',
+        color: '#304ffe',
     },
 });
 const StyledTextField = styled(TextField)({
@@ -50,8 +80,16 @@ const StyledTextField = styled(TextField)({
     '& .MuiInputLabel-shrink': {
         color: 'white',
     },
-    '& .MuiInput-underline:before': { borderBottomColor: 'white' },
-    '& .MuiInput-underline:after': { borderBottomColor: 'white' },
+    '& .MuiInputLabel-animate': {
+        color: 'white',
+    },
+
+    '& .MuiInput-underline:before': {
+        borderBottomColor: 'white',
+    },
+    '& .MuiInput-underline:after': {
+        borderBottomColor: 'white',
+    },
 });
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -66,36 +104,25 @@ const Login = () => {
     }, [user, loading, router]);
     return (
         <div className={styles.login}>
-            <Container>
-                <Grid
-                    container
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={{ xs: 2, md: 4 }}
-                    columns={{ xs: 4, sm: 8, md: 12 }}
-                >
-                    <Grid
-                        xs={12}
-                        sm={6}
-                        md={6}
-                        style={{
-                            textAlign: 'center',
-                        }}
-                    >
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                minHeight="100vh"
+            >
+                <Grid container spacing={3}>
+                    <Grid xs={12} md={12}>
+                        <StyledTextApp variant="h2">
+                            Join to the Social Media App
+                        </StyledTextApp>
+                    </Grid>
+                    <Grid xs={12} md={6}>
                         <img
                             src="https://web.zapper.fi/images/?url=https%3A%2F%2Fimg.cryptokitties.co%2F0x06012c8cf97bead5deae237070f9587f8e7a266d%2F1025387.png&width=500&checksum=132e0"
                             alt="Picture of the author"
                         />
                     </Grid>
-                    <Grid
-                        xs={12}
-                        sm={6}
-                        md={6}
-                        style={{
-                            textAlign: 'center',
-                        }}
-                    >
+                    <Grid xs={12} md={6}>
                         <StyledTextField
                             id="outlined-basic"
                             label="E-mail Address"
@@ -105,7 +132,6 @@ const Login = () => {
                             onChange={(e) => setEmail(e.target.value)}
                         />
                         <br />
-
                         <StyledTextField
                             id="outlined-basic"
                             type="password"
@@ -114,7 +140,6 @@ const Login = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-
                         <StyledButton
                             variant="contained"
                             onClick={() =>
@@ -123,24 +148,34 @@ const Login = () => {
                         >
                             Login
                         </StyledButton>
-
                         <StyledGoogleButton
                             variant="contained"
                             onClick={signInWithGoogle}
                         >
                             Login with Google
                         </StyledGoogleButton>
+                        <StyledFacebookButton
+                            variant="contained"
+                            onClick={signInWithFacebook}
+                        >
+                            Login with Facebook
+                        </StyledFacebookButton>
+
                         <StyledText variant="h6">
                             <Link href="/reset">Forgot Password</Link>
                         </StyledText>
-
                         <StyledText variant="h5">
                             Don't have an account?{' '}
-                            <Link href="/register">Register</Link> now.
+                            <Link href="/register">
+                                <StyledTextRegister variant="h6">
+                                    Register
+                                </StyledTextRegister>
+                            </Link>{' '}
+                            now.
                         </StyledText>
                     </Grid>
                 </Grid>
-            </Container>
+            </Box>
         </div>
     );
 };

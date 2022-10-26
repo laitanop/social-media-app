@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import {
     GoogleAuthProvider,
+    FacebookAuthProvider,
     getAuth,
     signInWithPopup,
     signInWithEmailAndPassword,
@@ -29,6 +30,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
 const signInWithGoogle = async () => {
     try {
         const res = await signInWithPopup(auth, googleProvider);
@@ -48,6 +50,19 @@ const signInWithGoogle = async () => {
         alert(err.message);
     }
 };
+const signInWithFacebook = async () => {
+    try {
+        facebookProvider.addScope('user_birthday');
+
+        const res = await signInWithPopup(auth, facebookProvider);
+        const token = res.credential.accessToken;
+        const user = res.user;
+    } catch (err) {
+        console.error(err);
+        alert(err.message);
+    }
+};
+
 const logInWithEmailAndPassword = async (email, password) => {
     try {
         await signInWithEmailAndPassword(auth, email, password);
@@ -87,6 +102,7 @@ export {
     auth,
     db,
     signInWithGoogle,
+    signInWithFacebook,
     logInWithEmailAndPassword,
     registerWithEmailAndPassword,
     sendPasswordReset,
