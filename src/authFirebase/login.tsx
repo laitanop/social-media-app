@@ -118,6 +118,7 @@ const Login = () => {
                     </Grid>
                     <Grid xs={12} md={6}>
                         <img
+                            className={styles.loginImg}
                             src="https://web.zapper.fi/images/?url=https%3A%2F%2Fimg.cryptokitties.co%2F0x06012c8cf97bead5deae237070f9587f8e7a266d%2F1025387.png&width=500&checksum=132e0"
                             alt="Picture of the author"
                         />
