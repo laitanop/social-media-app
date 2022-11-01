@@ -27,12 +27,19 @@ const StyledButton = styled(Button)({
     backgroundColor: '#d500f9',
     color: 'white',
     marginTop: '5px',
+    '&:hover': {
+        backgroundColor: '#f5f5f5',
+        color: '#304ffe',
+    },
+    '&:disabled': {
+        backgroundColor: '#f5f5f5',
+        color: 'grey',
+    },
 });
 const Message = (props: Props) => {
     const [user, loading, error] = useAuthState(auth);
     const [text, setText] = useState('');
-    console.log('user', user);
-    console.log('text', text);
+
     const messageCollectionRef = collection(db, 'message');
     const name = user && user.displayName;
     const createMessage = async () => {
@@ -73,7 +80,12 @@ const Message = (props: Props) => {
             </FormControl>
             <div style={{ textAlign: 'right' }}>
                 {' '}
-                <StyledButton onClick={createMessage}>create</StyledButton>
+                <StyledButton
+                    disabled={text.length === 0}
+                    onClick={createMessage}
+                >
+                    create
+                </StyledButton>
             </div>
         </div>
     );

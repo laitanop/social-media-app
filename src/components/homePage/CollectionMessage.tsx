@@ -4,7 +4,8 @@ import { auth, db } from '../../firebase';
 import Typography from '@mui/material/Typography';
 import { Paper } from '@mui/material';
 import { collection, getDocs } from 'firebase/firestore';
-
+import moment from 'moment';
+import { timePost } from './helper';
 type Props = {};
 
 const CollectionMessage = (props: Props) => {
@@ -20,14 +21,26 @@ const CollectionMessage = (props: Props) => {
             );
         };
         getMessages();
-    }, []);
+    });
 
     return (
         <div>
             {messageList.map((message) => {
-                console.log('mssage', message);
                 return (
-                    <Paper key={message.id}>
+                    <Paper
+                        key={message.id}
+                        style={{ padding: 10, marginTop: 15 }}
+                    >
+                        <div style={{ display: 'flex' }}>
+                            <span style={{ fontWeight: 'bolder' }}>
+                                {message.author.name}
+                            </span>
+
+                            <span style={{ marginLeft: 5 }}>
+                                &bull; {timePost(message.date)}
+                            </span>
+                        </div>
+
                         <Typography paragraph>{message.text}</Typography>
                     </Paper>
                 );
