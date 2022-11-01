@@ -34,7 +34,7 @@ const Message = (props: Props) => {
     console.log('user', user);
     console.log('text', text);
     const messageCollectionRef = collection(db, 'message');
-    const name = user.displayName;
+    const name = user && user.displayName;
     const createMessage = async () => {
         await addDoc(messageCollectionRef, {
             text,
@@ -55,7 +55,7 @@ const Message = (props: Props) => {
                 <Avatar src="/broken-image.jpg" />
 
                 <div style={{ margin: '5px' }}>
-                    <StyledName variant="h6">{user && name}</StyledName>
+                    <StyledName variant="h6">{name}</StyledName>
                     <StyledEmail variant="subtitle2">
                         {user && user.email}
                     </StyledEmail>
