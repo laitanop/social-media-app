@@ -9,6 +9,7 @@ import {
     createUserWithEmailAndPassword,
     sendPasswordResetEmail,
     signOut,
+    updateProfile,
 } from 'firebase/auth';
 import {
     getFirestore,
@@ -28,7 +29,7 @@ const firebaseConfig = {
     appId: process.env.appId,
 };
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+let auth = getAuth(app);
 const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
@@ -75,7 +76,12 @@ const logInWithEmailAndPassword = async (email, password) => {
 const registerWithEmailAndPassword = async (name, email, password) => {
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
+        console.log('auth-', auth);
         const user = res.user;
+        await updateProfile(user, {
+            displayName: name,
+        });
+        console.log('user', user);
         await addDoc(collection(db, 'users'), {
             uid: user.uid,
             name,
