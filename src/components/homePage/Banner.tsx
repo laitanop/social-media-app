@@ -1,30 +1,26 @@
 import React from 'react';
 import { AppBar, Toolbar, IconButton, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { auth } from '../../firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { styled } from '@mui/material/styles';
-
+import { useRouter } from 'next/router';
 const StyledName = styled(Typography)({
     color: 'black',
 });
-const StyledEmail = styled(Typography)({
-    color: 'black',
-    fontWeight: 'normal',
-});
+
 const StyledAppBar = styled(AppBar)({
-    border: '1px solid #d500f9',
     boxShadow: 'none',
+    backgroundColor: 'white',
 });
 
 type Props = { drawerWidth: number; handleDrawerToggle: () => void };
 
 const Banner = ({ drawerWidth, handleDrawerToggle }: Props) => {
-    const [user, loading, error] = useAuthState(auth);
+    const router = useRouter();
+
+    const namePath = router.pathname.slice(1);
 
     return (
         <StyledAppBar
-            color="transparent"
             position="fixed"
             sx={{
                 width: { sm: `calc(100% - ${drawerWidth}px)` },
@@ -33,7 +29,6 @@ const Banner = ({ drawerWidth, handleDrawerToggle }: Props) => {
         >
             <Toolbar>
                 <IconButton
-                    // color="inherit"
                     aria-label="open drawer"
                     edge="start"
                     onClick={handleDrawerToggle}
@@ -43,11 +38,8 @@ const Banner = ({ drawerWidth, handleDrawerToggle }: Props) => {
                 </IconButton>
                 <div>
                     <StyledName variant="h6" noWrap>
-                        {user && user.displayName}
+                        {namePath[0].toUpperCase() + namePath.slice(1)}
                     </StyledName>
-                    <StyledEmail variant="subtitle2" noWrap>
-                        {user && user.email}
-                    </StyledEmail>
                 </div>
             </Toolbar>
         </StyledAppBar>
