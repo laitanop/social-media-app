@@ -18,10 +18,13 @@ const StyledButtonRegister = styled(Button)({
     width: '100%',
     marginBottom: '10px',
     padding: '10px',
-    backgroundColor: '#d500f9',
+    color: 'white',
+    backgroundColor: '#50b7f5',
     '&:hover': {
-        backgroundColor: 'white',
-        color: '#d500f9',
+        backgroundColor: '#e0e0e0',
+        boxShadow: 'none',
+        border: '2px solid #e0e0e0',
+        color: 'black',
     },
 });
 const StyledGoogleButton = styled(Button)({
@@ -32,8 +35,10 @@ const StyledGoogleButton = styled(Button)({
     backgroundColor: 'black',
     padding: '10px',
     '&:hover': {
-        backgroundColor: 'white',
-        color: 'blue',
+        backgroundColor: '#e0e0e0',
+        boxShadow: 'none',
+        border: '2px solid #e0e0e0',
+        color: 'black',
     },
 });
 const StyledTextField = styled(TextField)({
@@ -41,28 +46,27 @@ const StyledTextField = styled(TextField)({
     marginBottom: '20px',
 
     '& .MuiInputBase-input': {
-        border: '1px solid transparent',
-        color: 'white',
+        color: 'black',
     },
     '& .MuiInputLabel-root': {
-        color: 'white',
+        color: 'black',
     },
     '& .MuiInputLabel-shrink': {
-        color: 'white',
+        color: 'black',
     },
     '& .MuiInputLabel-animate': {
-        color: 'white',
+        color: 'black',
     },
 
     '& .MuiInput-underline:before': {
-        borderBottomColor: 'white',
+        borderBottomColor: 'black',
     },
     '& .MuiInput-underline:after': {
-        borderBottomColor: 'white',
+        borderBottomColor: 'black',
     },
 });
 const StyledText = styled(Typography)({
-    color: '#d500f9',
+    color: '#50b7f5',
     textAlign: 'center',
 });
 
