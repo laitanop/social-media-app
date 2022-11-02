@@ -1,18 +1,23 @@
 import React, { useEffect } from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
+
 import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import Toolbar from '@mui/material/Toolbar';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+
 import { auth, logout } from '../../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/router';
 import LogoutIcon from '@mui/icons-material/Logout';
+import SideOptions from './SideOptions';
+import HomeIcon from '@mui/icons-material/Home';
+import Grid3x3Icon from '@mui/icons-material/Grid3x3';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
+import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import styles from '../../../styles/SideBar.module.css';
+import { Button } from '@mui/material';
 type Props = {};
 
 const SideMenu = (props: Props) => {
@@ -27,32 +32,35 @@ const SideMenu = (props: Props) => {
     }, [user, loading, router]);
 
     return (
-        <div>
-            <Toolbar />
+        <div className={styles.sidebar}>
+            <SideOptions
+                icon={<TwitterIcon className={styles.sidebar__twitterIcon} />}
+            />
+
+            <SideOptions active text="Home" icon={<HomeIcon />} />
+            <SideOptions text="Explore" icon={<Grid3x3Icon />} />
+            <SideOptions
+                text="Notifications"
+                icon={<NotificationsNoneIcon />}
+            />
+            <SideOptions text="Messages" icon={<ForwardToInboxIcon />} />
+            <SideOptions text="Bookmarks" icon={<TurnedInNotIcon />} />
+            <SideOptions text="Lists" icon={<ListAltIcon />} />
+            <SideOptions text="Profile" icon={<PermIdentityIcon />} />
+            <SideOptions text="More" icon={<MoreHorizIcon />} />
             <Divider />
-            <List>
-                {['Home'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                <ListItem disablePadding>
-                    <ListItemButton onClick={logout}>
-                        <ListItemIcon>
-                            <LogoutIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={'logout'} />
-                    </ListItemButton>
-                </ListItem>
-            </List>
+            <SideOptions
+                text="Logout"
+                icon={<LogoutIcon />}
+                handleClick={logout}
+            />
+            <Button
+                variant="outlined"
+                className={styles.sidebar__tweet}
+                fullWidth
+            >
+                Tweet
+            </Button>
         </div>
     );
 };

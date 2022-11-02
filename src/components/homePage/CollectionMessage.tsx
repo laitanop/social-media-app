@@ -4,8 +4,8 @@ import { auth, db } from '../../firebase';
 import Typography from '@mui/material/Typography';
 import { Paper } from '@mui/material';
 import { collection, getDocs } from 'firebase/firestore';
-import moment from 'moment';
 import { timePost } from './helper';
+import { orderBy } from 'lodash';
 type Props = {};
 
 const CollectionMessage = (props: Props) => {
@@ -21,11 +21,15 @@ const CollectionMessage = (props: Props) => {
             );
         };
         getMessages();
-    });
+    }, []);
 
+    if (messageList.length < 0) {
+        return <div />;
+    }
+    const list = orderBy(messageList, ['date'], ['desc']);
     return (
         <div>
-            {messageList.map((message) => {
+            {list.map((message) => {
                 return (
                     <Paper
                         key={message.id}

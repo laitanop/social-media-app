@@ -1,41 +1,12 @@
 import React, { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../../firebase';
-import FormControl from '@mui/material/FormControl';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import { addDoc, collection } from 'firebase/firestore';
 import { Button, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
+import styles from '../../../styles/Message.module.css';
 type Props = {};
-const StyledName = styled(Typography)({
-    color: 'black',
-});
-const StyledEmail = styled(Typography)({
-    marginTop: '-10px',
-    color: 'grey',
-    fontWeight: 'normal',
-    fontSize: '12px',
-});
 
-const StyledOutlinedInput = styled(OutlinedInput)({
-    '& .MuiOutlinedInput-notchedOutline': {
-        border: '1px solid #f5f5f5',
-    },
-});
-const StyledButton = styled(Button)({
-    backgroundColor: '#d500f9',
-    color: 'white',
-    marginTop: '5px',
-    '&:hover': {
-        backgroundColor: '#f5f5f5',
-        color: '#304ffe',
-    },
-    '&:disabled': {
-        backgroundColor: '#f5f5f5',
-        color: 'grey',
-    },
-});
 const Message = (props: Props) => {
     const [user, loading, error] = useAuthState(auth);
     const [text, setText] = useState('');
@@ -51,42 +22,26 @@ const Message = (props: Props) => {
     };
 
     return (
-        <div>
-            <div
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '10px',
-                }}
-            >
-                <Avatar src="/broken-image.jpg" />
-
-                <div style={{ margin: '5px' }}>
-                    <StyledName variant="h6">{name}</StyledName>
-                    <StyledEmail variant="subtitle2">
-                        {user && user.email}
-                    </StyledEmail>
+        <div className={styles.tweetBox}>
+            <form>
+                <div className={styles.tweetBox__input}>
+                    <Avatar src="/broken-image.jpg" />
+                    <input
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                        placeholder="What's happening?"
+                        type="text"
+                    />
                 </div>
-            </div>
 
-            <FormControl sx={{ width: '100%' }}>
-                <StyledOutlinedInput
-                    multiline={true}
-                    maxRows={3}
-                    placeholder="What's happening?"
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                />
-            </FormControl>
-            <div style={{ textAlign: 'right' }}>
-                {' '}
-                <StyledButton
+                <Button
                     disabled={text.length === 0}
                     onClick={createMessage}
+                    className={styles.tweetBox__tweetButton}
                 >
-                    create
-                </StyledButton>
-            </div>
+                    Tweet
+                </Button>
+            </form>
         </div>
     );
 };
