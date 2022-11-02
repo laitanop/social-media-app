@@ -21,18 +21,22 @@ const StyledButton = styled(Button)({
     width: '100%',
     marginTop: '10px',
     padding: '10px',
-    backgroundColor: '#d500f9',
+    backgroundColor: 'white',
+    border: '2px solid #e0e0e0',
+    boxShadow: 'none',
+    color: 'black',
     '&:hover': {
-        backgroundColor: 'white',
-        color: '#d500f9',
+        backgroundColor: '#e0e0e0',
+        boxShadow: 'none',
+        border: '2px solid #e0e0e0',
     },
 });
 const StyledText = styled(Typography)({
-    color: 'white',
+    color: '#50b7f5',
     textAlign: 'center',
 });
 const StyledTextApp = styled(Typography)({
-    color: '#d500f9',
+    color: 'black',
     textAlign: 'center',
     fontWeight: 'bold',
 });
@@ -41,7 +45,7 @@ const StyledTextRegister = styled(Typography)({
     cursor: 'pointer',
     display: 'inline-flex',
     '&:hover': {
-        color: 'white',
+        color: '#50b7f5',
     },
 });
 const StyledGoogleButton = styled(Button)({
@@ -51,8 +55,10 @@ const StyledGoogleButton = styled(Button)({
     backgroundColor: 'black',
     padding: '10px',
     '&:hover': {
-        backgroundColor: 'white',
-        color: 'blue',
+        backgroundColor: '#e0e0e0',
+        boxShadow: 'none',
+        border: '2px solid #e0e0e0',
+        color: 'black',
     },
 });
 const StyledFacebookButton = styled(Button)({
@@ -63,8 +69,10 @@ const StyledFacebookButton = styled(Button)({
     padding: '10px',
     backgroundColor: '#304ffe',
     '&:hover': {
-        backgroundColor: 'white',
-        color: '#304ffe',
+        backgroundColor: '#e0e0e0',
+        boxShadow: 'none',
+        border: '2px solid #e0e0e0',
+        color: 'black',
     },
 });
 const StyledTextField = styled(TextField)({
@@ -72,23 +80,23 @@ const StyledTextField = styled(TextField)({
     marginBottom: '20px',
     '& .MuiInputBase-input': {
         border: '1px solid transparent',
-        color: 'white',
+        color: 'black',
     },
     '& .MuiInputLabel-root': {
-        color: 'white',
+        color: '#50b7f5',
     },
     '& .MuiInputLabel-shrink': {
-        color: 'white',
+        color: '#50b7f5',
     },
     '& .MuiInputLabel-animate': {
-        color: 'white',
+        color: '#50b7f5',
     },
 
     '& .MuiInput-underline:before': {
-        borderBottomColor: 'white',
+        borderBottomColor: '#50b7f5',
     },
     '& .MuiInput-underline:after': {
-        borderBottomColor: 'white',
+        borderBottomColor: '#50b7f5',
     },
 });
 const Login = () => {
@@ -120,7 +128,7 @@ const Login = () => {
                         <Grid xs={12} md={6}>
                             <img
                                 className={styles.loginImg}
-                                src="https://web.zapper.fi/images/?url=https%3A%2F%2Fimg.cryptokitties.co%2F0x06012c8cf97bead5deae237070f9587f8e7a266d%2F1025387.png&width=500&checksum=132e0"
+                                src="https://help.twitter.com/content/dam/help-twitter/brand/logo.png"
                                 alt="Picture of the author"
                             />
                         </Grid>
@@ -148,7 +156,7 @@ const Login = () => {
                                     logInWithEmailAndPassword(email, password)
                                 }
                             >
-                                Login
+                                Login with email and password
                             </StyledButton>
                             <StyledGoogleButton
                                 variant="contained"
