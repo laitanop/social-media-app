@@ -71,11 +71,11 @@ const StyledText = styled(Typography)({
 });
 
 const StyledTextRegister = styled(Typography)({
-    color: 'black',
+    color: '#50b7f5',
     cursor: 'pointer',
     display: 'inline-flex',
     '&:hover': {
-        color: 'white',
+        color: '#50b7f5',
     },
 });
 function Register() {

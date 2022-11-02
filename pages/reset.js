@@ -9,11 +9,11 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
 const StyledTextRegister = styled(Typography)({
-    color: '#d500f9',
+    color: '#50b7f5',
     cursor: 'pointer',
     display: 'inline-flex',
     '&:hover': {
-        color: 'black',
+        color: '#50b7f5',
     },
 });
 const StyledGoogleButton = styled(Button)({
@@ -21,11 +21,13 @@ const StyledGoogleButton = styled(Button)({
     borderRadius: '100px',
     width: '100%',
     marginBottom: '10px',
-    backgroundColor: 'black',
+    backgroundColor: '#50b7f5',
     padding: '10px',
     '&:hover': {
-        backgroundColor: 'white',
-        color: 'blue',
+        backgroundColor: '#e0e0e0',
+        boxShadow: 'none',
+        border: '2px solid #e0e0e0',
+        color: 'black',
     },
 });
 const StyledTextField = styled(TextField)({
@@ -34,23 +36,23 @@ const StyledTextField = styled(TextField)({
 
     '& .MuiInputBase-input': {
         border: '1px solid transparent',
-        color: 'white',
+        color: 'black',
     },
     '& .MuiInputLabel-root': {
-        color: 'white',
+        color: 'black',
     },
     '& .MuiInputLabel-shrink': {
-        color: 'white',
+        color: 'black',
     },
     '& .MuiInputLabel-animate': {
-        color: 'white',
+        color: 'black',
     },
 
     '& .MuiInput-underline:before': {
-        borderBottomColor: 'white',
+        borderBottomColor: 'black',
     },
     '& .MuiInput-underline:after': {
-        borderBottomColor: 'white',
+        borderBottomColor: 'black',
     },
 });
 
