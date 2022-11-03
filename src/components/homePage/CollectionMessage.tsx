@@ -23,13 +23,13 @@ const CollectionMessage = ({ loadingMessage, resetLoadingMessage }: Props) => {
             );
         };
         getMessages();
-        resetLoadingMessage();
-    }, [loadingMessage]);
+    }, []);
 
     if (messageList.length < 0) {
         return <div />;
     }
     const list = orderBy(messageList, ['date'], ['desc']);
+    console.log('length', list.length);
     return (
         <div>
             {list.map((message) => {
