@@ -7,8 +7,7 @@ type Props = {};
 
 const HomePage = (props: Props) => {
     return (
-        <div className={styles.feed}>
-            <Banner />
+        <div>
             <Message />
             <CollectionMessage />
         </div>

@@ -31,14 +31,29 @@ const SideMenu = (props: Props) => {
         if (!user) router.push('/');
     }, [user, loading, router]);
 
+    const handleClick = (route: any) => {
+        router.push(`/${route}`);
+    };
+    const namePath = router.pathname.slice(1).toLocaleLowerCase();
+    console.log('router', router);
     return (
         <div className={styles.sidebar}>
             <SideOptions
                 icon={<TwitterIcon className={styles.sidebar__twitterIcon} />}
             />
 
-            <SideOptions active text="Home" icon={<HomeIcon />} />
-            <SideOptions text="Explore" icon={<Grid3x3Icon />} />
+            <SideOptions
+                active={namePath === 'home'}
+                text="Home"
+                icon={<HomeIcon />}
+                handleClick={() => handleClick('home')}
+            />
+            <SideOptions
+                text="Explore"
+                active={namePath === 'explorer'}
+                icon={<Grid3x3Icon />}
+                handleClick={() => handleClick('explorer')}
+            />
             <SideOptions
                 text="Notifications"
                 icon={<NotificationsNoneIcon />}

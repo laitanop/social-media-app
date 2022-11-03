@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, db } from '../../firebase';
+import { db } from '../../firebase';
 import Typography from '@mui/material/Typography';
 import { Paper } from '@mui/material';
 import { collection, getDocs } from 'firebase/firestore';
@@ -9,7 +8,6 @@ import { orderBy } from 'lodash';
 type Props = {};
 
 const CollectionMessage = (props: Props) => {
-    const [user, loading, error] = useAuthState(auth);
     const [messageList, setMessageList] = useState([]);
     const messageCollectionRef: any = collection(db, 'message');
     useEffect(() => {
@@ -21,7 +19,7 @@ const CollectionMessage = (props: Props) => {
             );
         };
         getMessages();
-    }, []);
+    });
 
     if (messageList.length < 0) {
         return <div />;
