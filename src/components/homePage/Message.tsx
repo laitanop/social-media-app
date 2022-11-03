@@ -16,11 +16,16 @@ const Message = ({ postMessage }: Props) => {
     const messageCollectionRef = collection(db, 'message');
     const name = user && user.displayName;
     const createMessage = async () => {
-        await addDoc(messageCollectionRef, {
-            text,
-            author: { name: user.displayName, uid: user.uid },
-            date: Date.now(),
-        });
+        try {
+            await addDoc(messageCollectionRef, {
+                text,
+                author: { name: user.displayName, uid: user.uid },
+                date: Date.now(),
+            });
+        } catch (err) {
+            console.log(err);
+        }
+
         postMessage();
     };
 
