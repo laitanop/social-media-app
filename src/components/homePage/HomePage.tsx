@@ -1,15 +1,26 @@
-import React from 'react';
-import Banner from './Banner';
+import React, { useState } from 'react';
 import CollectionMessage from './CollectionMessage';
 import Message from './Message';
-import styles from '../../../styles/HomePage.module.css';
+
 type Props = {};
 
 const HomePage = (props: Props) => {
+    const [loadingMessage, setLoadingMessage] = useState(false);
+
+    const resetLoadingMessage = () => {
+        setLoadingMessage(false);
+    };
+    const postMessage = () => {
+        setLoadingMessage(true);
+    };
+
     return (
         <div>
-            <Message />
-            <CollectionMessage />
+            <Message postMessage={postMessage} />
+            <CollectionMessage
+                loadingMessage={loadingMessage}
+                resetLoadingMessage={resetLoadingMessage}
+            />
         </div>
     );
 };

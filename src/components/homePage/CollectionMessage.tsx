@@ -5,11 +5,15 @@ import { Paper } from '@mui/material';
 import { collection, getDocs } from 'firebase/firestore';
 import { timePost } from './helper';
 import { orderBy } from 'lodash';
-type Props = {};
+type Props = {
+    loadingMessage: boolean;
+    resetLoadingMessage: any;
+};
 
-const CollectionMessage = (props: Props) => {
+const CollectionMessage = ({ loadingMessage, resetLoadingMessage }: Props) => {
     const [messageList, setMessageList] = useState([]);
     const messageCollectionRef: any = collection(db, 'message');
+
     useEffect(() => {
         const getMessages = async () => {
             let data = await getDocs(messageCollectionRef);
@@ -19,7 +23,8 @@ const CollectionMessage = (props: Props) => {
             );
         };
         getMessages();
-    });
+        resetLoadingMessage();
+    }, [loadingMessage]);
 
     if (messageList.length < 0) {
         return <div />;

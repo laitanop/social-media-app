@@ -5,9 +5,11 @@ import { addDoc, collection } from 'firebase/firestore';
 import { Button, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import styles from '../../../styles/Message.module.css';
-type Props = {};
+type Props = {
+    postMessage: () => void;
+};
 
-const Message = (props: Props) => {
+const Message = ({ postMessage }: Props) => {
     const [user, loading, error] = useAuthState(auth);
     const [text, setText] = useState('');
 
@@ -19,6 +21,7 @@ const Message = (props: Props) => {
             author: { name: user.displayName, uid: user.uid },
             date: Date.now(),
         });
+        postMessage();
     };
 
     return (
