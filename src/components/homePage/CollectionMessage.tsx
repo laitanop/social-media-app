@@ -8,9 +8,16 @@ import { orderBy } from 'lodash';
 type Props = {
     loadingMessage: boolean;
     resetLoadingMessage: any;
+    updateList: boolean;
+    updateListMessage: (boolean) => void;
 };
 
-const CollectionMessage = ({ loadingMessage, resetLoadingMessage }: Props) => {
+const CollectionMessage = ({
+    loadingMessage,
+    resetLoadingMessage,
+    updateList,
+    updateListMessage,
+}: Props) => {
     const [messageList, setMessageList] = useState([]);
     const messageCollectionRef: any = collection(db, 'message');
 
@@ -23,13 +30,17 @@ const CollectionMessage = ({ loadingMessage, resetLoadingMessage }: Props) => {
             );
         };
         getMessages();
-    }, []);
+        if (updateList) {
+            getMessages();
+            updateListMessage(false);
+        }
+    }, [updateList]);
 
     if (messageList.length < 0) {
         return <div />;
     }
     const list = orderBy(messageList, ['date'], ['desc']);
-    console.log('length', list.length);
+
     return (
         <div>
             {list.map((message) => {

@@ -7,9 +7,10 @@ import Avatar from '@mui/material/Avatar';
 import styles from '../../../styles/Message.module.css';
 type Props = {
     postMessage: () => void;
+    updateListMessage: (boolean) => void;
 };
 
-const Message = ({ postMessage }: Props) => {
+const Message = ({ postMessage, updateListMessage }: Props) => {
     const [user, loading, error] = useAuthState(auth);
     const [text, setText] = useState('');
 
@@ -22,6 +23,7 @@ const Message = ({ postMessage }: Props) => {
                 author: { name: user.displayName, uid: user.uid },
                 date: Date.now(),
             });
+            updateListMessage(true);
         } catch (err) {
             console.log(err);
         }
