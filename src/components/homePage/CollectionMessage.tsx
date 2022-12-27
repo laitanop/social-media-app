@@ -66,7 +66,6 @@ const CollectionMessage = ({ updateList, updateListMessage }: Props) => {
                                 src={message.video}
                                 width={'100%'}
                                 height={'100%'}
-                                alt=""
                             ></video>
                         )}
                     </Paper>
