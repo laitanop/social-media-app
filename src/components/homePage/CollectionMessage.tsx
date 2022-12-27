@@ -6,18 +6,11 @@ import { collection, getDocs } from 'firebase/firestore';
 import { timePost } from './helper';
 import { orderBy } from 'lodash';
 type Props = {
-    loadingMessage: boolean;
-    resetLoadingMessage: any;
     updateList: boolean;
     updateListMessage: (boolean) => void;
 };
 
-const CollectionMessage = ({
-    loadingMessage,
-    resetLoadingMessage,
-    updateList,
-    updateListMessage,
-}: Props) => {
+const CollectionMessage = ({ updateList, updateListMessage }: Props) => {
     const [messageList, setMessageList] = useState([]);
     const messageCollectionRef: any = collection(db, 'message');
 
@@ -58,8 +51,24 @@ const CollectionMessage = ({
                                 &bull; {timePost(message.date)}
                             </span>
                         </div>
-
                         <Typography paragraph>{message.text}</Typography>
+                        {message.image && (
+                            <img
+                                src={message.image}
+                                alt="uploaded file"
+                                width={'100%'}
+                                height={'100%'}
+                            />
+                        )}
+                        {message.video && (
+                            <video
+                                controls
+                                src={message.video}
+                                width={'100%'}
+                                height={'100%'}
+                                alt=""
+                            ></video>
+                        )}
                     </Paper>
                 );
             })}

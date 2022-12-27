@@ -35,7 +35,6 @@ const SideMenu = (props: Props) => {
         router.push(`/${route}`);
     };
     const namePath = router.pathname.slice(1).toLocaleLowerCase();
-    console.log('router', router);
     return (
         <div className={styles.sidebar}>
             <SideOptions

@@ -1,34 +1,95 @@
-import React, { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, db } from '../../firebase';
+import { auth, db, storage } from '../../firebase';
+import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
+import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import { addDoc, collection } from 'firebase/firestore';
-import { Button, Typography } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
+import {
+    Button,
+    Fab,
+    ButtonGroup,
+    Avatar,
+    Divider,
+    Tooltip,
+} from '@mui/material';
+
 import styles from '../../../styles/Message.module.css';
+import FilePreviewer from './FilePreviewer';
+
 type Props = {
-    postMessage: () => void;
     updateListMessage: (boolean) => void;
 };
 
-const Message = ({ postMessage, updateListMessage }: Props) => {
-    const [user, loading, error] = useAuthState(auth);
+const Message = ({ updateListMessage }: Props) => {
+    const [user] = useAuthState(auth);
     const [text, setText] = useState('');
+    const [file, setFile] = useState(null);
 
     const messageCollectionRef = collection(db, 'message');
-    const name = user && user.displayName;
+    let filePickerRef = useRef(null);
     const createMessage = async () => {
         try {
-            await addDoc(messageCollectionRef, {
-                text,
-                author: { name: user.displayName, uid: user.uid },
-                date: Date.now(),
-            });
-            updateListMessage(true);
+            if (file) {
+                const storageRef = ref(storage, `files/${file.name}`);
+                const uploadTask = uploadBytesResumable(storageRef, file);
+
+                uploadTask.on(
+                    'state_changed',
+                    (snapshot) => {
+                        const progress = Math.round(
+                            (snapshot.bytesTransferred / snapshot.totalBytes) *
+                                100
+                        );
+                    },
+                    (error) => {
+                        alert(error);
+                    },
+                    () => {
+                        getDownloadURL(uploadTask.snapshot.ref).then(
+                            (downloadURL) => {
+                                addDoc(messageCollectionRef, {
+                                    text,
+                                    author: {
+                                        name: user.displayName,
+                                        uid: user.uid,
+                                    },
+                                    date: Date.now(),
+                                    image:
+                                        file.type.includes('image') &&
+                                        downloadURL,
+                                    video:
+                                        file.type.includes('video') &&
+                                        downloadURL,
+                                });
+                                updateListMessage(true);
+                                resetMessage();
+                            }
+                        );
+                    }
+                );
+            } else {
+                await addDoc(messageCollectionRef, {
+                    text,
+                    author: { name: user.displayName, uid: user.uid },
+                    date: Date.now(),
+                    image: false,
+                    video: false,
+                });
+                resetMessage();
+            }
         } catch (err) {
             console.log(err);
         }
+        updateListMessage(true);
+    };
 
-        postMessage();
+    const resetMessage = () => {
+        setText('');
+        setFile(null);
+    };
+
+    const handleSelectFile = (file) => {
+        setFile(file);
     };
 
     return (
@@ -43,14 +104,31 @@ const Message = ({ postMessage, updateListMessage }: Props) => {
                         type="text"
                     />
                 </div>
-
-                <Button
-                    disabled={text.length === 0}
-                    onClick={createMessage}
-                    className={styles.tweetBox__tweetButton}
-                >
-                    Tweet
-                </Button>
+                <FilePreviewer
+                    handleSelectFile={handleSelectFile}
+                    file={file}
+                    filePickerRef={filePickerRef}
+                />
+                <Divider />
+                <ButtonGroup className={styles.tweetBox__GroupButton}>
+                    <Tooltip title="Media">
+                        <Fab
+                            onClick={() => filePickerRef.current.click()}
+                            color="primary"
+                            aria-label="add"
+                            className={styles.tweetBox__imageButton}
+                        >
+                            <ImageOutlinedIcon />
+                        </Fab>
+                    </Tooltip>
+                    <Button
+                        disabled={text.length === 0}
+                        onClick={createMessage}
+                        className={styles.tweetBox__tweetButton}
+                    >
+                        Tweet
+                    </Button>
+                </ButtonGroup>
             </form>
         </div>
     );
