@@ -49,12 +49,12 @@
 .tweetBox__imageButton {
     background-color: transparent !important;
     color: #1e9bf0 !important;
-    box-shadow: none;
+    box-shadow: none !important;
 }
 .tweetBox__imageButton:hover {
     background-color: #ddecf6 !important;
 
-    box-shadow: none;
+    box-shadow: none !important;
 }
 .tweetBox__GroupButton {
     margin-left: 70px;

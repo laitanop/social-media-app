@@ -8,9 +8,9 @@ type Props = {
 
 const FeedLayout = ({ children }: Props) => {
     return (
-        <div className={styles.feed}>
+        <div>
             <Banner />
-            {children}
+            <div className={styles.children}>{children}</div>
         </div>
     );
 };

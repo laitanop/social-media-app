@@ -6,9 +6,17 @@
     margin-right: auto;
     padding: 0 10px;
 }
-.feed {
-    flex: 0.4;
-    border-right: 1px solid var(--twitter-background);
-    min-width: fit-content;
-    overflow-y: scroll;
+.layout_div {
+    overflow: scroll;
+    width: 650px;
+    border-left: 1px solid var(--twitter-border-color);
+    border-right: 1px solid var(--twitter-border-color);
+}
+.layout_div::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+.children {
+    padding-top: 80px;
 }

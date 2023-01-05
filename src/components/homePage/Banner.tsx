@@ -10,10 +10,8 @@ const Banner = (props: Props) => {
     const namePath = router.pathname.slice(1);
 
     return (
-        <div className={styles.feed}>
-            <div className={styles.feed__header}>
-                <h2> {namePath[0].toUpperCase() + namePath.slice(1)}</h2>
-            </div>
+        <div className={styles.feed__header}>
+            <h2> {namePath[0].toUpperCase() + namePath.slice(1)}</h2>
         </div>
     );
 };
