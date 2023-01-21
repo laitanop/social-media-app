@@ -132,7 +132,7 @@ const Message = ({ updateListMessage }: Props) => {
                             <ImageOutlinedIcon />
                         </Fab>
                     </Tooltip>
-                    <Tooltip title="Media">
+                    <Tooltip title="Gif">
                         <Fab
                             onClick={() => handleOpenModalGif(true)}
                             color="primary"
