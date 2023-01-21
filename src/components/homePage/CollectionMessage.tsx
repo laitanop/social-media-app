@@ -68,6 +68,13 @@ const CollectionMessage = ({ updateList, updateListMessage }: Props) => {
                                 height={'100%'}
                             ></video>
                         )}
+                        {message.gifUrl && (
+                            <img
+                                src={message.gifUrl}
+                                height={'100%'}
+                                width={'100%'}
+                            />
+                        )}
                     </Paper>
                 );
             })}

@@ -3,6 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db, storage } from '../../firebase';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
+import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
 import { addDoc, collection } from 'firebase/firestore';
 import {
     Button,
@@ -15,6 +16,8 @@ import {
 
 import styles from '../../../styles/Message.module.css';
 import FilePreviewer from './FilePreviewer';
+import GifPage from './GifPage';
+import GifPreview from './GifPreview';
 
 type Props = {
     updateListMessage: (boolean) => void;
@@ -24,9 +27,12 @@ const Message = ({ updateListMessage }: Props) => {
     const [user] = useAuthState(auth);
     const [text, setText] = useState('');
     const [file, setFile] = useState(null);
+    const [openModalGif, setOpenModalGif] = useState(false);
+    const [fileGif, setFileGif] = useState(null);
 
     const messageCollectionRef = collection(db, 'message');
     let filePickerRef = useRef(null);
+
     const createMessage = async () => {
         try {
             if (file) {
@@ -74,6 +80,7 @@ const Message = ({ updateListMessage }: Props) => {
                     date: Date.now(),
                     image: false,
                     video: false,
+                    gifUrl: fileGif,
                 });
                 resetMessage();
             }
@@ -86,12 +93,15 @@ const Message = ({ updateListMessage }: Props) => {
     const resetMessage = () => {
         setText('');
         setFile(null);
+        setFileGif(null);
     };
 
     const handleSelectFile = (file) => {
         setFile(file);
     };
-
+    const handleOpenModalGif = (mode) => {
+        setOpenModalGif(mode);
+    };
     return (
         <div className={styles.tweetBox}>
             <form>
@@ -109,6 +119,7 @@ const Message = ({ updateListMessage }: Props) => {
                     file={file}
                     filePickerRef={filePickerRef}
                 />
+                <GifPreview file={fileGif} />
                 <Divider />
                 <ButtonGroup className={styles.tweetBox__GroupButton}>
                     <Tooltip title="Media">
@@ -121,6 +132,21 @@ const Message = ({ updateListMessage }: Props) => {
                             <ImageOutlinedIcon />
                         </Fab>
                     </Tooltip>
+                    <Tooltip title="Media">
+                        <Fab
+                            onClick={() => handleOpenModalGif(true)}
+                            color="primary"
+                            aria-label="add"
+                            className={styles.tweetBox__imageButton}
+                        >
+                            <GifBoxOutlinedIcon />
+                        </Fab>
+                    </Tooltip>
+                    <GifPage
+                        open={openModalGif}
+                        handleClose={() => handleOpenModalGif(false)}
+                        handleFileGif={(file) => setFileGif(file)}
+                    />
                     <Button
                         disabled={text.length === 0}
                         onClick={createMessage}
