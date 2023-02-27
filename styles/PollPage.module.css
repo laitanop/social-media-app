@@ -1,0 +1,58 @@
+.pollContainer {
+    padding-bottom: 15px;
+}
+.pollBox {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border: 1px solid #cfd9de;
+}
+
+.pollBoxGrid {
+    padding: 15px;
+}
+
+.pollTextField {
+    margin-bottom: 15px;
+}
+
+.pollAddButton {
+    margin-bottom: 25px;
+    background-color: transparent !important;
+    color: var(--twitter-color-hover) !important;
+    box-shadow: none !important;
+}
+
+.pollAddButton:hover {
+    background-color: #ddecf6 !important;
+
+    box-shadow: none !important;
+}
+
+.pollLabel {
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+.buttonBoxRemovePoll {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom: 1px solid #cfd9de;
+    border-right: 1px solid #cfd9de;
+    border-left: 1px solid #cfd9de;
+    height: 55px;
+}
+.buttonBoxRemovePoll:hover {
+    background-color: rgb(244, 210, 210);
+}
+.buttonBoxRemovePoll Button {
+    color: red;
+}
+
+.pollLength {
+    border-bottom: 1px solid #cfd9de;
+    border-right: 1px solid #cfd9de;
+    border-left: 1px solid #cfd9de;
+}

@@ -4,6 +4,7 @@ import { auth, db, storage } from '../../firebase';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import GifBoxOutlinedIcon from '@mui/icons-material/GifBoxOutlined';
+import DnsOutlinedIcon from '@mui/icons-material/DnsOutlined';
 import { addDoc, collection } from 'firebase/firestore';
 import {
     Button,
@@ -18,6 +19,7 @@ import styles from '../../../styles/Message.module.css';
 import FilePreviewer from './FilePreviewer';
 import GifPage from './GifPage';
 import GifPreview from './GifPreview';
+import PollPage from './PollPage';
 
 type Props = {
     updateListMessage: (boolean) => void;
@@ -28,6 +30,7 @@ const Message = ({ updateListMessage }: Props) => {
     const [text, setText] = useState('');
     const [file, setFile] = useState(null);
     const [openModalGif, setOpenModalGif] = useState(false);
+    const [showPoll, setShowPoll] = useState(false);
     const [fileGif, setFileGif] = useState(null);
 
     const messageCollectionRef = collection(db, 'message');
@@ -102,6 +105,10 @@ const Message = ({ updateListMessage }: Props) => {
     const handleOpenModalGif = (mode) => {
         setOpenModalGif(mode);
     };
+    const handleOShowPoll = (mode) => {
+        setShowPoll(mode);
+    };
+
     return (
         <div className={styles.tweetBox}>
             <form>
@@ -110,16 +117,20 @@ const Message = ({ updateListMessage }: Props) => {
                     <input
                         value={text}
                         onChange={(e) => setText(e.target.value)}
-                        placeholder="What's happening?"
+                        placeholder={
+                            showPoll ? 'Ask a question...' : "What's happening?"
+                        }
                         type="text"
                     />
                 </div>
+
                 <FilePreviewer
                     handleSelectFile={handleSelectFile}
                     file={file}
                     filePickerRef={filePickerRef}
                 />
                 <GifPreview file={fileGif} />
+                {showPoll && <PollPage removePoll={() => setShowPoll(false)} />}
                 <Divider />
                 <ButtonGroup className={styles.tweetBox__GroupButton}>
                     <Tooltip title="Media">
@@ -140,6 +151,16 @@ const Message = ({ updateListMessage }: Props) => {
                             className={styles.tweetBox__imageButton}
                         >
                             <GifBoxOutlinedIcon />
+                        </Fab>
+                    </Tooltip>
+                    <Tooltip title="Poll">
+                        <Fab
+                            onClick={() => handleOShowPoll(true)}
+                            color="primary"
+                            aria-label="add"
+                            className={styles.tweetBox__imageButton}
+                        >
+                            <DnsOutlinedIcon />
                         </Fab>
                     </Tooltip>
                     <GifPage
