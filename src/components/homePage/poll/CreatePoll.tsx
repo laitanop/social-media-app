@@ -1,19 +1,20 @@
 import { Button } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Box, Grid, Fab } from '@mui/material';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import MuiSelect from '../common/MuiSelect';
+import MuiSelect from '../../common/MuiSelect';
 import { last } from 'lodash';
-import styles from '../../../styles/PollPage.module.css';
+import styles from '../../../../styles/CreatePoll.module.css';
 
 type Props = {
     removePoll: () => void;
+    handlePoll: (poll) => void;
 };
 
-const PollPage = ({ removePoll }: Props) => {
+const PollPage = ({ removePoll, handlePoll }: Props) => {
     const [poll, setPoll] = useState({
         list: [
             { id: 1, question: '', voters: 0 },
@@ -22,7 +23,6 @@ const PollPage = ({ removePoll }: Props) => {
         pollLength: { days: 1, hours: 0, minutes: 0 },
     });
 
-    console.log('poll', poll);
     const handleAddInput = () => {
         const nextInput = poll.list;
         const questionId = nextInput.length + 1;
@@ -60,6 +60,10 @@ const PollPage = ({ removePoll }: Props) => {
             },
         });
     };
+
+    useEffect(() => {
+        handlePoll(poll);
+    }, [poll]);
     const getPoll = () => {
         const poll = localStorage.getItem('poll');
         if (poll) {

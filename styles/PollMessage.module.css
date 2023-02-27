@@ -1,0 +1,9 @@
+.pollButton {
+    color: var(--twitter-color);
+    border-radius: 100px;
+    border: 1px solid var(--twitter-color);
+    margin: 5px;
+}
+.pollButton:hover {
+    background-color: var(--twitter-color-hover) !important;
+}

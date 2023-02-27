@@ -18,7 +18,7 @@
 .pollAddButton {
     margin-bottom: 25px;
     background-color: transparent !important;
-    color: var(--twitter-color-hover) !important;
+    color: var(--twitter-color) !important;
     box-shadow: none !important;
 }
 

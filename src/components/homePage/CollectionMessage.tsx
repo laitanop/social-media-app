@@ -5,6 +5,7 @@ import { Paper } from '@mui/material';
 import { collection, getDocs } from 'firebase/firestore';
 import { timePost } from './helper';
 import { orderBy } from 'lodash';
+import PollMessage from './poll/pollMessage';
 type Props = {
     updateList: boolean;
     updateListMessage: (boolean) => void;
@@ -75,6 +76,7 @@ const CollectionMessage = ({ updateList, updateListMessage }: Props) => {
                                 width={'100%'}
                             />
                         )}
+                        {message.poll && <PollMessage poll={message.poll} />}
                     </Paper>
                 );
             })}

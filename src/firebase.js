@@ -81,7 +81,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
         await updateProfile(user, {
             displayName: name,
         });
-        console.log('user', user);
+
         await addDoc(collection(db, 'users'), {
             uid: user.uid,
             name,

@@ -19,7 +19,7 @@ import styles from '../../../styles/Message.module.css';
 import FilePreviewer from './FilePreviewer';
 import GifPage from './GifPage';
 import GifPreview from './GifPreview';
-import PollPage from './PollPage';
+import PollPage from './poll/CreatePoll';
 
 type Props = {
     updateListMessage: (boolean) => void;
@@ -31,6 +31,7 @@ const Message = ({ updateListMessage }: Props) => {
     const [file, setFile] = useState(null);
     const [openModalGif, setOpenModalGif] = useState(false);
     const [showPoll, setShowPoll] = useState(false);
+    const [poll, setPoll] = useState(null);
     const [fileGif, setFileGif] = useState(null);
 
     const messageCollectionRef = collection(db, 'message');
@@ -76,6 +77,17 @@ const Message = ({ updateListMessage }: Props) => {
                         );
                     }
                 );
+            } else if (poll) {
+                await addDoc(messageCollectionRef, {
+                    text,
+                    author: { name: user.displayName, uid: user.uid },
+                    date: Date.now(),
+                    image: false,
+                    video: false,
+                    gifUrl: fileGif,
+                    poll: { list: poll.list, pollLength: poll.pollLength },
+                });
+                resetMessage();
             } else {
                 await addDoc(messageCollectionRef, {
                     text,
@@ -84,6 +96,7 @@ const Message = ({ updateListMessage }: Props) => {
                     image: false,
                     video: false,
                     gifUrl: fileGif,
+                    poll: null,
                 });
                 resetMessage();
             }
@@ -97,6 +110,7 @@ const Message = ({ updateListMessage }: Props) => {
         setText('');
         setFile(null);
         setFileGif(null);
+        setShowPoll(false);
     };
 
     const handleSelectFile = (file) => {
@@ -107,6 +121,9 @@ const Message = ({ updateListMessage }: Props) => {
     };
     const handleOShowPoll = (mode) => {
         setShowPoll(mode);
+    };
+    const handlePoll = (poll) => {
+        setPoll(poll);
     };
 
     return (
@@ -130,7 +147,12 @@ const Message = ({ updateListMessage }: Props) => {
                     filePickerRef={filePickerRef}
                 />
                 <GifPreview file={fileGif} />
-                {showPoll && <PollPage removePoll={() => setShowPoll(false)} />}
+                {showPoll && (
+                    <PollPage
+                        removePoll={() => setShowPoll(false)}
+                        handlePoll={handlePoll}
+                    />
+                )}
                 <Divider />
                 <ButtonGroup className={styles.tweetBox__GroupButton}>
                     <Tooltip title="Media">

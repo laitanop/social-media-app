@@ -5,7 +5,7 @@ body {
 
     --twitter-color: #50b7f5;
     --twitter-background: #e6ecf0;
-    --twitter-color-hover: #1e9bf0 !important;
+    --twitter-color-hover: #d0e2f3 !important;
 }
 
 @media (prefers-color-scheme: dark) {
