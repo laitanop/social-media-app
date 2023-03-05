@@ -36,7 +36,7 @@ const CollectionMessage = ({ updateList, updateListMessage }: Props) => {
     const list = orderBy(messageList, ['date'], ['desc']);
 
     return (
-        <div>
+        <React.Fragment>
             {list.map((message) => {
                 return (
                     <Paper
@@ -76,11 +76,11 @@ const CollectionMessage = ({ updateList, updateListMessage }: Props) => {
                                 width={'100%'}
                             />
                         )}
-                        {message.poll && <PollMessage poll={message.poll} />}
+                        {message.poll && <PollMessage message={message} />}
                     </Paper>
                 );
             })}
-        </div>
+        </React.Fragment>
     );
 };
 
