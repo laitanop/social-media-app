@@ -1,17 +1,17 @@
 .pollButton {
-    color: var(--twitter-color);
-    border-radius: 100px;
-    border: 1px solid var(--twitter-color);
-    margin: 5px;
+    color: var(--twitter-color) !important;
+    border-radius: 100px !important;
+    border: 1px solid var(--twitter-color) !important;
+    margin: 5px !important;
 }
 .pollButton:hover {
     background-color: var(--twitter-color-hover) !important;
 }
 
 .pollInactive {
-    color: black;
-    border-radius: 5px;
-    border: none;
-    margin: 5px 0px 5px 0px;
-    padding: 10px;
+    color: black !important;
+    border-radius: 5px !important;
+    border: none !important;
+    margin: 5px 0px 5px 0px !important;
+    padding: 10px !important;
 }
