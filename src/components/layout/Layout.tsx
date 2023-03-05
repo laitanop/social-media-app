@@ -9,6 +9,7 @@ const Layout = ({ children }: Props) => {
     return (
         <div className={styles.layout_container}>
             <SideMenu />
+
             <div className={styles.layout_div}>{children}</div>
         </div>
     );
