@@ -85,7 +85,11 @@ const Message = ({ updateListMessage }: Props) => {
                     image: false,
                     video: false,
                     gifUrl: fileGif,
-                    poll: { list: poll.list, pollLength: poll.pollLength },
+                    poll: {
+                        list: poll.list,
+                        pollLength: poll.pollLength,
+                        votersUsers: [],
+                    },
                 });
                 resetMessage();
             } else {
