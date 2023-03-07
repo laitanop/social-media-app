@@ -2,7 +2,7 @@ import { Button, Grid } from '@mui/material';
 import React, { useState } from 'react';
 import styles from '../../../../styles/PollMessage.module.css';
 import { collection, getDocs, updateDoc } from 'firebase/firestore';
-import { db } from '../../../firebase';
+import { db, auth } from '../../../firebase';
 import { findIndex } from 'lodash';
 import moment from 'moment';
 import { Box } from '@mui/system';
@@ -10,7 +10,7 @@ import {
     isNegative,
     sumVotes,
     getPercentage,
-    getHighestVote,
+    userVoted,
     getBackgroundColor,
     getWidth,
 } from './helper';
@@ -24,11 +24,13 @@ const PollMessage = ({ message }) => {
     const daysLeft = pollEnd.diff(moment(), 'days', true);
 
     const onClickPoll = async (question) => {
+        const currentUserUid = auth.currentUser.uid.toString();
         const updatedPoll = { ...poll };
         const pollToUpdate = updatedPoll.poll.list.find(
             (poll) => poll.id === question.id
         );
         pollToUpdate.voters = pollToUpdate.voters + 1;
+        updatedPoll.poll.votersUsers.push(currentUserUid);
         setPoll(updatedPoll);
 
         let getCollection = collection(db, 'message');
@@ -93,11 +95,17 @@ const PollMessage = ({ message }) => {
                     </Grid>
                 </Grid>
             ))}
-            {sumVotes(message.poll.list)} votes - Final results
+            {sumVotes(message.poll.list)} votes -{' '}
+            {isNegative(daysLeft)
+                ? 'Final results'
+                : Math.trunc(daysLeft) + ' days left'}
         </React.Fragment>
     );
 
-    const showPollList = isNegative(daysLeft) ? pollInactive : pollActive;
+    const showPollList =
+        isNegative(daysLeft) || userVoted(message, auth.currentUser.uid)
+            ? pollInactive
+            : pollActive;
 
     return <React.Fragment>{showPollList}</React.Fragment>;
 };

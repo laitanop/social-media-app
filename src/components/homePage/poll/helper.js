@@ -1,4 +1,4 @@
-import { maxBy } from 'lodash';
+import { maxBy, includes } from 'lodash';
 
 export function isNegative(num) {
     if (Math.sign(num) === -1) {
@@ -33,4 +33,9 @@ export function getWidth(voters, message) {
     return `${getPercentage(voters, sumVotes(message.poll.list))
         .toFixed(2)
         .toString()}%`;
+}
+
+export function userVoted(message, user) {
+    const voted = includes(message.poll.votersUsers, user.toString());
+    return voted;
 }

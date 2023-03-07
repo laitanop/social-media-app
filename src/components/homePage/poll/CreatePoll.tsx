@@ -21,6 +21,7 @@ const PollPage = ({ removePoll, handlePoll }: Props) => {
             { id: 2, question: '', voters: 0 },
         ],
         pollLength: { days: 1, hours: 0, minutes: 0 },
+        votersUsers: [],
     });
 
     const handleAddInput = () => {
