@@ -1,20 +1,21 @@
 html,
 body {
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: #f4f6fc;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
-    --twitter-color: #50b7f5;
-    --twitter-background: #e6ecf0;
-    --twitter-color-hover: #d0e2f3 !important;
+  --twitter-color: #50b7f5;
+  --twitter-background: #e6ecf0;
+  --twitter-color-hover: #d0e2f3 !important;
 }
 
 @media (prefers-color-scheme: dark) {
-    html {
-        color-scheme: dark;
-    }
-    body {
-        --twitter-color: #50b7f5;
-        --twitter-background: #e6ecf0;
-        --twitter-border-color: #cfd9de !important;
-    }
+  html {
+    color-scheme: dark;
+  }
+  body {
+    --twitter-color: #50b7f5;
+    --twitter-background: #e6ecf0;
+    --twitter-border-color: #cfd9de !important;
+  }
 }
