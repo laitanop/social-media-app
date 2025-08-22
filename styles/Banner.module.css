@@ -1,25 +1,25 @@
 .feed {
-    flex: 0.4;
+  flex: 0.4;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .feed::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
 
 .feed__header {
-    position: fixed;
-    background-color: white;
-    width: 650px;
-    z-index: 100;
+  position: fixed;
+  background-color: transparent;
+  width: 650px;
+  z-index: 100;
 
-    padding: 15px 20px;
-    top: 0;
+  padding: 15px 20px;
+  top: 0;
 }
 
 .feed__header > h2 {
-    font-size: 20px;
-    font-weight: 800;
+  font-size: 20px;
+  font-weight: 800;
 }

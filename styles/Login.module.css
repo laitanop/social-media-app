@@ -1,19 +1,19 @@
 .login {
-    padding: 50px;
-    padding-right: 50px;
-    text-align: center;
+  padding: 50px;
+  padding-right: 50px;
+  text-align: center;
 }
 
 .logout {
-    border: none;
-    color: white;
-    background-color: #4285f4;
-    cursor: pointer;
-    width: 100%;
+  border: none;
+  color: white;
+  background-color: #4285f4;
+  cursor: pointer;
+  width: 100%;
 }
 @media only screen and (max-width: 600px) {
-    .loginImg {
-        width: 350px;
-        height: 350px;
-    }
+  .loginImg {
+    width: 350px;
+    height: 350px;
+  }
 }
