@@ -80,7 +80,7 @@ const PollMessage = ({ message }) => {
             </Box>
           </Grid>
           <Grid item xs={2}>
-            {getPercentage(voters, sumVotes(message.poll.list)).toFixed(2)}%
+            {getPercentage(voters, sumVotes(message.poll.list)).toFixed(0)}%
           </Grid>
         </Grid>
       ))}
