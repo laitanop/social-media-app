@@ -11,7 +11,7 @@
 
 .feed__header {
   position: fixed;
-  background-color: transparent;
+  background-color: #f4f6fc;
   width: 650px;
   z-index: 100;
 

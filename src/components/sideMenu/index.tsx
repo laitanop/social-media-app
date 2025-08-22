@@ -16,7 +16,6 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import styles from "../../../styles/SideBar.module.css";
-import { Button } from "@mui/material";
 import logo from "../../../public/img/logoConnectify.png";
 
 import Image, { StaticImageData } from "next/image";
@@ -41,12 +40,9 @@ const SideMenu = (props: Props) => {
     <div className={styles.sidebar}>
       <SideOptions
         icon={
-          <Image
-            src={logo as StaticImageData}
-            alt="pic"
-            height={90}
-            width={70}
-          />
+          <div className={styles.logoImage}>
+            <Image src={logo as StaticImageData} alt="pic" />
+          </div>
         }
       />
 
@@ -70,9 +66,6 @@ const SideMenu = (props: Props) => {
       <SideOptions text="More" icon={<MoreHorizIcon />} />
       <Divider />
       <SideOptions text="Logout" icon={<LogoutIcon />} handleClick={logout} />
-      <Button variant="outlined" className={styles.sidebar__tweet} fullWidth>
-        Tweet
-      </Button>
     </div>
   );
 };
